@@ -25,10 +25,14 @@ class Stack {
   // of the class must be able to create, copy, assign, and destroy stacks.
 
   //EFFECTS:  returns true if the stack is empty
-  bool empty() const;
+    bool empty() const {
+        return list.empty();
+    }
 
   //EFFECTS: returns the number of elements in this Stack
-  int size() const;
+    int size() const {
+        return list.size();
+    }
 
   //REQUIRES: stack is non-empty.
   //EFFECTS:  removes the item at the top and returns it.
@@ -39,7 +43,14 @@ class Stack {
   //    // exactly the same elements as it did before we
   //    // called my_stack.push(42)
   //    // (i.e., the 42 that we pushed is not on the stack anymore)
-  T pop();
+    T pop() {
+        if (list.size() == 0) {
+            return -1;
+        }
+        T tmp = list.front();
+        list.pop_front();
+        return tmp;
+    }
 
   //REQUIRES: stack is non-empty.
   //EFFECTS:  returns the top element from the stack by reference without
@@ -52,17 +63,32 @@ class Stack {
   //    int value = my_stack.top();
   //    // At this point in the example, value == 42 but my_stack
   //    // *still has the 42 we pushed as it's top element.*
-  T & top();
+    T & top() {
+        if (list.size() == 0) {
+            return list.front();
+        }
+        else {
+            return list.front();
+        }
+    }
 
   //EFFECTS: pushes an item onto the top of the stack
-  void push(const T &item);
+    void push(const T &item) {
+        list.push_front(item);
+    }
 
   //MODIFIES: os
   //EFFECTS: prints all the elements of the stack to os, starting from
   // the top element. Each element printed is followed by a space,
   // including the last element. Do not print a newline.
   // If the stack is empty, print nothing.
-  void print(std::ostream &os) const;
+    void print(std::ostream &os) const {
+        List<int>::Iterator iter = list.begin();
+        while (iter != list.end()) {
+            os << *iter << " ";
+            ++iter;
+        }
+    }
 
 private:
   /* You must make use of List's interface to implement the stack.
@@ -86,7 +112,8 @@ private:
 // empty, print nothing. Returns os.
 template <typename T>
 std::ostream &operator<<(std::ostream &os, const Stack<T> &stack) {
-  assert(false);
+    stack.print(os);
+    return os;
 }
 
 #endif // Do not remove this. Write all your code above this line.

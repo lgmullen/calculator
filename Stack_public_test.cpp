@@ -35,6 +35,7 @@ TEST(test_stack_other_functions_compile) {
     my_stack.top();
     Stack<int> stack_cpy(my_stack);
     my_stack = stack_cpy;
+    cout << my_stack << endl;
 }
 
 TEST_MAIN()
